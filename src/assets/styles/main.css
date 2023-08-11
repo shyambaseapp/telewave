@@ -1,0 +1,31 @@
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+   .main-container {
+     padding-top: 40px;
+     padding-bottom: 40px;
+   }
+ }
+ 
+ /* Medium devices (tablets, 768px and up) */
+ @media (min-width: 768px) {
+   .main-container {
+     padding-top: 80px;
+     padding-bottom: 80px;
+   }
+ }
+ 
+ /* Large devices (desktops, 992px and up) */
+ @media (min-width: 992px) {
+   .main-container {
+     padding-top: 130px;
+     padding-bottom: 130px;
+   }
+ }
+ 
+ /* Extra large devices (large desktops, 1200px and up) */
+ @media (min-width: 1200px) {
+   .main-container {
+     padding-top: 170px;
+     padding-bottom: 170px;
+   }
+ }
