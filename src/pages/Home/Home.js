@@ -8,7 +8,7 @@ const Home = (props) => {
   const id = uuid();
   return (
     <>
-      <div className=" mt-4 container-lg">
+      <div className=" mt-5 mb-5 container-lg">
         <div className="row">
           <div className="col-md-5  d-flex justify-content-center">
             <div className="container-lg">

@@ -18,15 +18,15 @@ const App = () => {
       <Layout>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/create-meeting" element={<CreateMeeting />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="create-meeting" element={<CreateMeeting />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/room/:roomID" element={<VideoStreams />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/verify-email" element={<VerifyEmail />} />
+          <Route path="room/:roomID" element={<VideoStreams />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+          <Route path="verify-email" element={<VerifyEmail />} />
         </Routes>
       </Layout>
     </Router>

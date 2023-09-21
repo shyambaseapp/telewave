@@ -1,130 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import io from "socket.io-client";
-import Peer from "simple-peer";
-import { useParams } from "react-router-dom";
-import VideoCarousel from "./VideoCarousel";
-import ActiveSpeakerDetection from "./ActiveSpeakerDetection";
-import StreamIcons from "./StreamIcons";
-
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
-
-const socket = io.connect("https://videochatserver-evr8.onrender.com");
-
-const VideoStreams = (props) => {
-  var settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-  const [peers, setPeers] = useState([]);
-  const userVideo = useRef();
-  const peersRef = useRef([]);
-  const { roomID } = useParams();
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((stream) => {
-        userVideo.current.srcObject = stream;
-        socket.emit("join room", roomID);
-        socket.on("all users", (users) => {
-          const peers = [];
-          users.forEach((userID) => {
-            const peer = createPeer(userID, socket.id, stream);
-            peersRef.current.push({
-              peerID: userID,
-              peer,
-            });
-            peers.push(peer);
-          });
-          setPeers(peers);
-        });
-
-        socket.on("user joined", (payload) => {
-          const peer = addPeer(payload.signal, payload.callerID, stream);
-          peersRef.current.push({
-            peerID: payload.callerID,
-            peer,
-          });
-
-          setPeers((users) => [...users, peer]);
-        });
-
-        socket.on("receiving returned signal", (payload) => {
-          const item = peersRef.current.find((p) => p.peerID === payload.id);
-          item.peer.signal(payload.signal);
-        });
-      });
-  }, [roomID]);
-
-  function createPeer(userToSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: true,
-      trickle: false,
-      stream,
-    });
-
-    peer.on("signal", (signal) => {
-      socket.emit("sending signal", {
-        userToSignal,
-        callerID,
-        signal,
-      });
-    });
-
-    return peer;
-  }
-
-  function addPeer(incomingSignal, callerID, stream) {
-    const peer = new Peer({
-      initiator: false,
-      trickle: false,
-      stream,
-    });
-
-    peer.on("signal", (signal) => {
-      socket.emit("returning signal", { signal, callerID });
-    });
-
-    peer.signal(incomingSignal);
-
-    return peer;
-  }
-
-  return (
-    <>
-      <div className="rounded-3 bg-dark container">
+<div className="rounded-3 bg-dark container">
         <div className="p-1">
           <div className="row flex-lg-nowrap  mb-3 mt-3">
             <div className="col-lg-8 ml-4">
@@ -148,7 +22,7 @@ const VideoStreams = (props) => {
                 className="border border-1 rounded-3 embed-responsive embed-responsive-16by9 mt-2 ml-2"
                 style={{
                   height: "418px",
-                  width: "auto",
+                  width: "715px",
                 }}
               >
                 <div className="col">
@@ -215,8 +89,3 @@ const VideoStreams = (props) => {
           </div>
         </div>
       </div>
-    </>
-  );
-};
-
-export default VideoStreams;

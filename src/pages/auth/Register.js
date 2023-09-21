@@ -14,9 +14,9 @@ const Register = () => {
               alt="Sample"
             />
           </div>
-          <div className="card shadow rounded-lg col-lg-  col-xl-4 offset-xl-1">
-            <form className="mt-4 mb-4 mr-2 ml-2">
-              <p className="text-center h1 fw-bold mb-4 mx-1 mx-md-4 mt-2">
+          <div className="card shadow rounded-lg col-lg  col-xl-4 offset-xl-1">
+            <form className="mt-4 mr-2 ml-2">
+              <p className="text-center h1 fw-bold mb-4 mx-1 mx-md-4 ">
                 Sign up
               </p>
 

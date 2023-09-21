@@ -9,13 +9,13 @@ const VideoCarousel = (props) => {
   }, [props.peer]);
   return (
     <div
-      className="rounded embed-responsive embed-responsive-16by9"
+      className="border border-1 rounded-3 embed-responsive embed-responsive-16by9 mt-1"
       style={{
         height: "135px",
-        width: "200px",
+        width: "175px",
       }}
     >
-      <video playsInline autoPlay ref={ref} />
+      <video playsInline autoPlay ref={ref}  />
     </div>
   );
 };
